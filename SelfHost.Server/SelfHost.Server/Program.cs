@@ -30,11 +30,15 @@ namespace SelfHost.Server
             //var msMq = new NetMsmqBinding();
             //var msMqAdr = "net.msmq://localhost/Wetter";
 
+            var netHttp = new NetHttpBinding();
+            var netHttpAdr = "http://localhost:5";
+
             var host = new ServiceHost(typeof(WetterService));
             host.AddServiceEndpoint(typeof(IWetterService), tcpBind, tcpAdr);
             host.AddServiceEndpoint(typeof(IWetterService), basicHttp, bHttpAdr);
             host.AddServiceEndpoint(typeof(IWetterService), wsHttp, wsHttpAdr);
             host.AddServiceEndpoint(typeof(IWetterService), netPipe, netPipeAdr);
+            host.AddServiceEndpoint(typeof(IWetterService), netHttp, netHttpAdr);
             //host.AddServiceEndpoint(typeof(IWetterService), msMq, msMqAdr);
 
             var smb = new ServiceMetadataBehavior()

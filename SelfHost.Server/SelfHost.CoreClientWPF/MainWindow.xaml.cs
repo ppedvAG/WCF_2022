@@ -16,8 +16,9 @@ namespace SelfHost.CoreClientWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var chf = new ChannelFactory<IWetterService>(new BasicHttpBinding(), new EndpointAddress("http://localhost:3"));
+            //var chf = new ChannelFactory<IWetterService>(new BasicHttpBinding(), new EndpointAddress("http://localhost:3"));
             //var chf = new ChannelFactory<IWetterService>(new NetTcpBinding(), new EndpointAddress("net.tcp://localhost:1"));
+            var chf = new ChannelFactory<IWetterService>(new NetHttpBinding(), new EndpointAddress("http://localhost:5"));
 
             //no
             //var chf = new ChannelFactory<IWetterService>(new WSHttpBinding(), new EndpointAddress("http://localhost:4"));
