@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32210.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalloWCF", "HalloWCF\HalloWCF.csproj", "{7BEE9A06-DDA1-4FE6-A527-49760941BB1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalloWCF.Client", "HalloWCF.Client\HalloWCF.Client.csproj", "{99A8DE5E-C477-45A7-B470-4150DC6EC1B5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7BEE9A06-DDA1-4FE6-A527-49760941BB1A} = {7BEE9A06-DDA1-4FE6-A527-49760941BB1A}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BEE9A06-DDA1-4FE6-A527-49760941BB1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BEE9A06-DDA1-4FE6-A527-49760941BB1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BEE9A06-DDA1-4FE6-A527-49760941BB1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BEE9A06-DDA1-4FE6-A527-49760941BB1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99A8DE5E-C477-45A7-B470-4150DC6EC1B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99A8DE5E-C477-45A7-B470-4150DC6EC1B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99A8DE5E-C477-45A7-B470-4150DC6EC1B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99A8DE5E-C477-45A7-B470-4150DC6EC1B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05990F25-B592-4C24-9FAB-4B0BFA8AD907}
+	EndGlobalSection
+EndGlobal
