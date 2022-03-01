@@ -1,0 +1,54 @@
+<Zeug xmlns="" xmlns:sb="http://ppedv.de/Sitzbank" xmlns:geld="http://ppedv.de/ns/Geldbank">
+
+    
+    <sb:Bank>
+        <Ort>Park</Ort>
+        <Anzahlplätze>2</Anzahlplätze>
+        <Rückenlehne>ja</Rückenlehne>
+        <Info xmlns="">Hat nichts mit bank zu tun</Info>
+    </sb:Bank>
+
+    <sb:Bank>
+        <Ort>Wald</Ort>
+        <Anzahlplätze>4</Anzahlplätze>
+        <Rückenlehne>nein</Rückenlehne>
+    </sb:Bank>
+
+    <geld:Bank>
+        <Ort>Heidelberg</Ort>
+        <BLZ>999999</BLZ>
+    </geld:Bank>
+
+    <geld:Bank>
+        <Ort>Berlin</Ort>
+        <BLZ>12345</BLZ>
+    </geld:Bank>
+
+</Zeug>
+
+<Zeug xmlns="">
+
+    <Bank xmlns="http://ppedv.de/Sitzbank">
+        <Ort>Park</Ort>
+        <Anzahlplätze>2</Anzahlplätze>
+        <Rückenlehne>ja</Rückenlehne>
+        <Info xmlns="">Hat nichts mit bank zu tun</Info>
+    </Bank>
+
+    <Bank xmlns="http://ppedv.de/Sitzbank"> 
+        <Ort>Wald</Ort>
+        <Anzahlplätze>4</Anzahlplätze>
+        <Rückenlehne>nein</Rückenlehne>
+    </Bank>
+
+    <Bank xmlns="http://ppedv.de/ns/Geldbank">
+        <Ort>Heidelberg</Ort>
+        <BLZ>999999</BLZ>
+    </Bank>
+
+    <Bank xmlns="http://ppedv.de/ns/Geldbank">
+        <Ort>Berlin</Ort>
+        <BLZ>12345</BLZ>
+    </Bank>
+
+</Zeug>
