@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.ServiceModel;
 
 namespace SuperChat.Contracts
@@ -14,5 +15,9 @@ namespace SuperChat.Contracts
 
         [OperationContract(IsOneWay = true)]
         void SendMsg(string msg);
+
+
+        [OperationContract(IsOneWay = true)]
+        void SendImage(Stream image);
     }
 }

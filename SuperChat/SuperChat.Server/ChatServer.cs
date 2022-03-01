@@ -1,6 +1,7 @@
 ﻿using SuperChat.Contracts;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 
@@ -93,6 +94,38 @@ namespace SuperChat.Server
             else
                 client.LogoutResult(true, "War gar nicht in der Liste");
 
+        }
+
+        public void SendImage(Stream image)
+        {
+            IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
+            var sender = users.FirstOrDefault(x => x.Value == client);
+
+            if (sender.Key != null)
+            {
+                var ms = new MemoryStream();
+                image.CopyTo(ms);
+
+                Console.WriteLine($"SendImage: ...🖼");
+                SendImageToAllUsers(ms);
+            }
+        }
+
+        private void SendImageToAllUsers(Stream image)
+        {
+            foreach (var item in users.ToList())
+            {
+                try
+                {
+                    image.Position = 0;
+                    item.Value.ShowImage(image);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"ERROR SendImageToAllUsers: {ex.Message}");
+                    Logout(item.Key);
+                }
+            }
         }
     }
 }

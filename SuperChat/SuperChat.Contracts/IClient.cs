@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.ServiceModel;
 
 namespace SuperChat.Contracts
@@ -14,6 +15,9 @@ namespace SuperChat.Contracts
 
         [OperationContract(IsOneWay = true)]
         void ShowMsg(string msg);
+
+        [OperationContract(IsOneWay = true)]
+        void ShowImage(Stream image);
 
         [OperationContract(IsOneWay = true)]
         void ShowUsers(IEnumerable<string> users);

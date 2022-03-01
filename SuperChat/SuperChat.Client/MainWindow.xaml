@@ -13,9 +13,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBox Name="msgTb" Margin="4"/>
             <Button Grid.Column="1" Name="sendBtn" Click="SendText">Senden</Button>
+            <Button Grid.Column="2" Name="sendImageBtn" Click="SendImage">Bild...</Button>
         </Grid>
         
         <ListBox Name="usersLb" DockPanel.Dock="Right" Width="160" Background="DodgerBlue"></ListBox>

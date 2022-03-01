@@ -1,8 +1,12 @@
-﻿using SuperChat.Contracts;
+﻿using Microsoft.Win32;
+using SuperChat.Contracts;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ServiceModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace SuperChat.Client
 {
@@ -82,6 +86,32 @@ namespace SuperChat.Client
         {
             server.SendMsg(msgTb.Text);
             msgTb.Clear();
+        }
+
+        public void ShowImage(Stream image)
+        {
+            var ms = new MemoryStream();
+            image.CopyTo(ms);
+            ms.Position = 0;
+            var img = new Image();
+            img.BeginInit();
+            img.Source = BitmapFrame.Create(ms, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+            img.Stretch = System.Windows.Media.Stretch.None;
+            img.EndInit();
+            chatLb.Items.Add(img);
+        }
+
+        private void SendImage(object sender, RoutedEventArgs e)
+        {
+            var dlg = new OpenFileDialog() { Title = "Wähle ein Bild", Filter = "Bild|*.png;*.jpg;*.gif|Alle Dateien|*.*" };
+
+            if (dlg.ShowDialog().Value)
+            {
+                using (var stream = File.OpenRead(dlg.FileName))
+                {
+                    server.SendImage(stream);
+                }
+            }
         }
     }
 }
