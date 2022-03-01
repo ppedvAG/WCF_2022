@@ -1,4 +1,5 @@
-using PizzaService;
+using ServiceReference1;
+using System.ServiceModel;
 
 namespace HalloDataContracts.Client
 {
@@ -25,14 +26,28 @@ namespace HalloDataContracts.Client
             }
 
             var client = new PizzaServiceClient();
-            var lieferung = client.BestellPizza(new BestellPizzaRequest(pizza)).BestellPizzaResult;
-            
 
-            listBox1.Items.Clear();
-            listBox1.Items.Add($"Preis: {lieferung.Preis:c}");
-            listBox1.Items.Add($"Geschnitten: {(lieferung.Geschnitten ? "Ja" : "Nein")}");
-            listBox1.Items.Add("Beläge:");
-            lieferung.Beläge.ForEach(x => listBox1.Items.Add(x));
+            try
+            {
+                var lieferung = client.BestellPizza(pizza);
+
+                listBox1.Items.Clear();
+                listBox1.Items.Add($"Preis: {lieferung.Preis:c}");
+                listBox1.Items.Add($"Geschnitten: {(lieferung.Geschnitten ? "Ja" : "Nein")}");
+                listBox1.Items.Add("Beläge:");
+                lieferung.Beläge.ForEach(x => listBox1.Items.Add(x));
+            }
+            catch(FaultException<PizzaFehler> ex)
+            {
+                MessageBox.Show($"Pizza Bestell Fehler:{ex.Detail.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Fehler {ex.Message}");
+            }
+
+
+
         }
     }
 }

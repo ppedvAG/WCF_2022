@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PizzaService
+namespace ServiceReference1
 {
     using System.Runtime.Serialization;
     
@@ -21,8 +21,6 @@ namespace PizzaService
         private System.Collections.Generic.List<string> BelägeField;
         
         private bool GeschnittenField;
-        
-        private int MyPropertyField;
         
         private decimal PreisField;
         
@@ -53,19 +51,6 @@ namespace PizzaService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MyProperty
-        {
-            get
-            {
-                return this.MyPropertyField;
-            }
-            set
-            {
-                this.MyPropertyField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal Preis
         {
             get
@@ -79,108 +64,70 @@ namespace PizzaService
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="PizzaService.IPizzaService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PizzaFehler", Namespace="http://schemas.datacontract.org/2004/07/HalloDataContracts")]
+    public partial class PizzaFehler : object
+    {
+        
+        private string MessageField;
+        
+        private ServiceReference1.Pizza PizzaField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message
+        {
+            get
+            {
+                return this.MessageField;
+            }
+            set
+            {
+                this.MessageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ServiceReference1.Pizza Pizza
+        {
+            get
+            {
+                return this.PizzaField;
+            }
+            set
+            {
+                this.PizzaField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IPizzaService")]
     public interface IPizzaService
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPizzaService/GetData", ReplyAction="http://tempuri.org/IPizzaService/GetDataResponse")]
-        PizzaService.GetDataResponse GetData(PizzaService.GetDataRequest request);
+        string GetData(int value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPizzaService/GetData", ReplyAction="http://tempuri.org/IPizzaService/GetDataResponse")]
-        System.Threading.Tasks.Task<PizzaService.GetDataResponse> GetDataAsync(PizzaService.GetDataRequest request);
+        System.Threading.Tasks.Task<string> GetDataAsync(int value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPizzaService/BestellPizza", ReplyAction="http://tempuri.org/IPizzaService/BestellPizzaResponse")]
-        PizzaService.BestellPizzaResponse BestellPizza(PizzaService.BestellPizzaRequest request);
+        [System.ServiceModel.FaultContractAttribute(typeof(ServiceReference1.PizzaFehler), Action="http://tempuri.org/IPizzaService/BestellPizzaPizzaFehlerFault", Name="PizzaFehler", Namespace="http://schemas.datacontract.org/2004/07/HalloDataContracts")]
+        ServiceReference1.Pizza BestellPizza(ServiceReference1.Pizza pizza);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPizzaService/BestellPizza", ReplyAction="http://tempuri.org/IPizzaService/BestellPizzaResponse")]
-        System.Threading.Tasks.Task<PizzaService.BestellPizzaResponse> BestellPizzaAsync(PizzaService.BestellPizzaRequest request);
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetData", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class GetDataRequest
-    {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public int value;
-        
-        public GetDataRequest()
-        {
-        }
-        
-        public GetDataRequest(int value)
-        {
-            this.value = value;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetDataResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class GetDataResponse
-    {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public string GetDataResult;
-        
-        public GetDataResponse()
-        {
-        }
-        
-        public GetDataResponse(string GetDataResult)
-        {
-            this.GetDataResult = GetDataResult;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="BestellPizza", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class BestellPizzaRequest
-    {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public PizzaService.Pizza pizza;
-        
-        public BestellPizzaRequest()
-        {
-        }
-        
-        public BestellPizzaRequest(PizzaService.Pizza pizza)
-        {
-            this.pizza = pizza;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="BestellPizzaResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class BestellPizzaResponse
-    {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public PizzaService.Pizza BestellPizzaResult;
-        
-        public BestellPizzaResponse()
-        {
-        }
-        
-        public BestellPizzaResponse(PizzaService.Pizza BestellPizzaResult)
-        {
-            this.BestellPizzaResult = BestellPizzaResult;
-        }
+        System.Threading.Tasks.Task<ServiceReference1.Pizza> BestellPizzaAsync(ServiceReference1.Pizza pizza);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public interface IPizzaServiceChannel : PizzaService.IPizzaService, System.ServiceModel.IClientChannel
+    public interface IPizzaServiceChannel : ServiceReference1.IPizzaService, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public partial class PizzaServiceClient : System.ServiceModel.ClientBase<PizzaService.IPizzaService>, PizzaService.IPizzaService
+    public partial class PizzaServiceClient : System.ServiceModel.ClientBase<ServiceReference1.IPizzaService>, ServiceReference1.IPizzaService
     {
         
         /// <summary>
@@ -223,24 +170,24 @@ namespace PizzaService
         {
         }
         
-        public PizzaService.GetDataResponse GetData(PizzaService.GetDataRequest request)
+        public string GetData(int value)
         {
-            return base.Channel.GetData(request);
+            return base.Channel.GetData(value);
         }
         
-        public System.Threading.Tasks.Task<PizzaService.GetDataResponse> GetDataAsync(PizzaService.GetDataRequest request)
+        public System.Threading.Tasks.Task<string> GetDataAsync(int value)
         {
-            return base.Channel.GetDataAsync(request);
+            return base.Channel.GetDataAsync(value);
         }
         
-        public PizzaService.BestellPizzaResponse BestellPizza(PizzaService.BestellPizzaRequest request)
+        public ServiceReference1.Pizza BestellPizza(ServiceReference1.Pizza pizza)
         {
-            return base.Channel.BestellPizza(request);
+            return base.Channel.BestellPizza(pizza);
         }
         
-        public System.Threading.Tasks.Task<PizzaService.BestellPizzaResponse> BestellPizzaAsync(PizzaService.BestellPizzaRequest request)
+        public System.Threading.Tasks.Task<ServiceReference1.Pizza> BestellPizzaAsync(ServiceReference1.Pizza pizza)
         {
-            return base.Channel.BestellPizzaAsync(request);
+            return base.Channel.BestellPizzaAsync(pizza);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
