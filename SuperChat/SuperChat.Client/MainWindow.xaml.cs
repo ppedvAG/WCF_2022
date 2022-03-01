@@ -1,4 +1,5 @@
 ﻿using SuperChat.Contracts;
+using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.Windows;
@@ -10,10 +11,13 @@ namespace SuperChat.Client
     /// </summary>
     public partial class MainWindow : Window, IClient
     {
+        IServer server = null;
+
         public MainWindow()
         {
             InitializeComponent();
             LogoutResult(true, "");
+            nameTb.Text = $"Fred {Guid.NewGuid().ToString().Substring(0, 4)}";
         }
 
         private void Login(object sender, RoutedEventArgs e)
@@ -26,11 +30,10 @@ namespace SuperChat.Client
             server.Login(nameTb.Text);
         }
 
-        IServer server = null;
 
         private void Logout(object sender, RoutedEventArgs e)
         {
-
+            server?.Logout();
         }
 
         public void LoginResult(bool ok, string msg)
@@ -56,8 +59,12 @@ namespace SuperChat.Client
                 logoutBtn.IsEnabled = !true;
                 msgTb.IsEnabled = !true;
                 sendBtn.IsEnabled = !true;
+
+                usersLb.ItemsSource = null;
+                chatLb.Items.Clear();
             }
-            else
+
+            if (!string.IsNullOrEmpty(msg))
                 MessageBox.Show(msg);
         }
 
@@ -71,6 +78,10 @@ namespace SuperChat.Client
             usersLb.ItemsSource = users;
         }
 
-
+        private void SendText(object sender, RoutedEventArgs e)
+        {
+            server.SendMsg(msgTb.Text);
+            msgTb.Clear();
+        }
     }
 }

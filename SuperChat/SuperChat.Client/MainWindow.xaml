@@ -15,7 +15,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBox Name="msgTb" Margin="4"/>
-            <Button Grid.Column="1" Name="sendBtn">Senden</Button>
+            <Button Grid.Column="1" Name="sendBtn" Click="SendText">Senden</Button>
         </Grid>
         
         <ListBox Name="usersLb" DockPanel.Dock="Right" Width="160" Background="DodgerBlue"></ListBox>
