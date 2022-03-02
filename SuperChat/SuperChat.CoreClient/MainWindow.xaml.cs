@@ -35,15 +35,17 @@ namespace SuperChat.Client
 
             var tcpAdr = "net.tcp://DESKTOP-VCPG150:1"; //WICHTIG Hier PC Name und nicht nur IP !! 
 
-            EndpointIdentity identity = EndpointIdentity.CreateDnsIdentity("SuperChatCA");
+            //EndpointIdentity identity = EndpointIdentity.CreateDnsIdentity("SuperChatCA");
+            EndpointIdentity identity = new DnsEndpointIdentity("SuperChatCA"); //<-- dotNet Core
             EndpointAddress address = new EndpointAddress(new Uri(tcpAdr), identity);
 
-            var http = new WSDualHttpBinding();
-            http.Security.Mode = WSDualHttpSecurityMode.Message;
-            http.Security.Message.ClientCredentialType = MessageCredentialType.Certificate;
-            http.MaxReceivedMessageSize = int.MaxValue;
-            var httpAdr = "http://192.168.178.122:2/chat";
-            EndpointAddress httpAddress = new EndpointAddress(new Uri(httpAdr), identity);
+
+            //var http = new WSDualHttpBinding();
+            //http.Security.Mode = WSDualHttpSecurityMode.Message;
+            //http.Security.Message.ClientCredentialType = MessageCredentialType.Certificate;
+            //http.MaxReceivedMessageSize = int.MaxValue;
+            //var httpAdr = "http://192.168.178.122:2/chat";
+            //EndpointAddress httpAddress = new EndpointAddress(new Uri(httpAdr), identity);
 
             var netHttp = new NetHttpsBinding();
             //netHttp.Security.Mode = BasicHttpsSecurityMode.Transport;
@@ -51,7 +53,7 @@ namespace SuperChat.Client
             var netHttpAdr = "https://localhost:3/chat";
 
 
-            var chf = new DuplexChannelFactory<IServer>(this, tcp, address);
+            var chf = new DuplexChannelFactory<IServer>(new InstanceContext(this), tcp, address);
             //var chf = new DuplexChannelFactory<IServer>(this, http, httpAddress);
             chf.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None;
             chf.Credentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.Root, X509FindType.FindByThumbprint, "2758d963dfbdcf0ed3cf638f4f8f3db6f6da7acb");
@@ -71,11 +73,14 @@ namespace SuperChat.Client
         {
             if (ok)
             {
-                nameTb.IsEnabled = false;
-                loginBtn.IsEnabled = false;
-                logoutBtn.IsEnabled = true;
-                msgTb.IsEnabled = true;
-                sendBtn.IsEnabled = true;
+                this.Dispatcher.Invoke(() =>
+                {
+                    nameTb.IsEnabled = false;
+                    loginBtn.IsEnabled = false;
+                    logoutBtn.IsEnabled = true;
+                    msgTb.IsEnabled = true;
+                    sendBtn.IsEnabled = true;
+                });
             }
             else
                 MessageBox.Show(msg);
@@ -85,14 +90,17 @@ namespace SuperChat.Client
         {
             if (ok)
             {
-                nameTb.IsEnabled = !false;
-                loginBtn.IsEnabled = !false;
-                logoutBtn.IsEnabled = !true;
-                msgTb.IsEnabled = !true;
-                sendBtn.IsEnabled = !true;
+                this.Dispatcher.Invoke(() =>
+                {
+                    nameTb.IsEnabled = !false;
+                    loginBtn.IsEnabled = !false;
+                    logoutBtn.IsEnabled = !true;
+                    msgTb.IsEnabled = !true;
+                    sendBtn.IsEnabled = !true;
 
-                usersLb.ItemsSource = null;
-                chatLb.Items.Clear();
+                    usersLb.ItemsSource = null;
+                    chatLb.Items.Clear();
+                });
             }
 
             if (!string.IsNullOrEmpty(msg))
@@ -101,12 +109,12 @@ namespace SuperChat.Client
 
         public void ShowMsg(string msg)
         {
-            chatLb.Items.Add(msg);
+            this.Dispatcher.Invoke(() => chatLb.Items.Add(msg));
         }
 
         public void ShowUsers(IEnumerable<string> users)
         {
-            usersLb.ItemsSource = users;
+            this.Dispatcher.Invoke(() => usersLb.ItemsSource = users);
         }
 
         private void SendText(object sender, RoutedEventArgs e)
@@ -117,15 +125,18 @@ namespace SuperChat.Client
 
         public void ShowImage(Stream image)
         {
-            var ms = new MemoryStream();
-            image.CopyTo(ms);
-            ms.Position = 0;
-            var img = new Image();
-            img.BeginInit();
-            img.Source = BitmapFrame.Create(ms, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-            img.Stretch = System.Windows.Media.Stretch.None;
-            img.EndInit();
-            chatLb.Items.Add(img);
+            this.Dispatcher.Invoke(() =>
+            {
+                var ms = new MemoryStream();
+                image.CopyTo(ms);
+                ms.Position = 0;
+                var img = new Image();
+                img.BeginInit();
+                img.Source = BitmapFrame.Create(ms, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                img.Stretch = System.Windows.Media.Stretch.None;
+                img.EndInit();
+                chatLb.Items.Add(img);
+            });
         }
 
         private void SendImage(object sender, RoutedEventArgs e)
