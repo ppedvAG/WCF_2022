@@ -3,6 +3,7 @@ using SuperChat.Contracts;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,10 +29,26 @@ namespace SuperChat.Client
         {
             var tcp = new NetTcpBinding();
             tcp.MaxReceivedMessageSize = int.MaxValue;
-
+            tcp.Security.Mode = SecurityMode.Transport;
             var tcpAdr = "net.tcp://localhost:1";
 
+            var http = new WSDualHttpBinding();
+            //http.Security.Mode = WSDualHttpSecurityMode.None;
+            http.MaxReceivedMessageSize = int.MaxValue;
+            var httpAdr = "http://localhost:2/chat";
+
+            var netHttp = new NetHttpsBinding();
+            //netHttp.Security.Mode = BasicHttpsSecurityMode.Transport;
+            netHttp.MaxReceivedMessageSize = int.MaxValue;
+            var netHttpAdr = "https://localhost:3/chat";
+
+
             var chf = new DuplexChannelFactory<IServer>(this, tcp, tcpAdr);
+            chf.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None;
+            chf.Credentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.Root, X509FindType.FindByThumbprint, "2758d963dfbdcf0ed3cf638f4f8f3db6f6da7acb");
+            //var chf = new DuplexChannelFactory<IServer>(this, http, httpAdr);
+            //var chf = new DuplexChannelFactory<IServer>(this, netHttp, netHttpAdr);
+
             server = chf.CreateChannel();
             server.Login(nameTb.Text);
         }
