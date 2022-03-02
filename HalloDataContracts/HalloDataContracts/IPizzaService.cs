@@ -26,10 +26,10 @@ namespace HalloDataContracts
         public string Message { get; set; }
     }
 
-    [DataContract]
+    [DataContract(Namespace ="http://ppedv.de/wcfkurs/2022/")]
     public class Pizza
     {
-        [DataMember]
+        [DataMember(Name="price")]
         public decimal Preis { get; set; }
 
         [DataMember]
@@ -37,6 +37,9 @@ namespace HalloDataContracts
 
         [DataMember]
         public bool Geschnitten { get; set; }
+
+        [DataMember]
+        public bool Geschnitten2222 { get; set; }
 
 
         public int Geheim { get; set; }

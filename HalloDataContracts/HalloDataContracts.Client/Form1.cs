@@ -32,7 +32,7 @@ namespace HalloDataContracts.Client
                 var lieferung = client.BestellPizza(pizza);
 
                 listBox1.Items.Clear();
-                listBox1.Items.Add($"Preis: {lieferung.Preis:c}");
+                listBox1.Items.Add($"Preis: {lieferung.price:c}");
                 listBox1.Items.Add($"Geschnitten: {(lieferung.Geschnitten ? "Ja" : "Nein")}");
                 listBox1.Items.Add("Beläge:");
                 lieferung.Beläge.ForEach(x => listBox1.Items.Add(x));

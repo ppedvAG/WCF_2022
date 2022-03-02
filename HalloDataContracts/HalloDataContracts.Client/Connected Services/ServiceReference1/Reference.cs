@@ -14,7 +14,7 @@ namespace ServiceReference1
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Pizza", Namespace="http://schemas.datacontract.org/2004/07/HalloDataContracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Pizza", Namespace="http://ppedv.de/wcfkurs/2022/")]
     public partial class Pizza : object
     {
         
@@ -22,7 +22,7 @@ namespace ServiceReference1
         
         private bool GeschnittenField;
         
-        private decimal PreisField;
+        private decimal priceField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Collections.Generic.List<string> Beläge
@@ -51,15 +51,15 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Preis
+        public decimal price
         {
             get
             {
-                return this.PreisField;
+                return this.priceField;
             }
             set
             {
-                this.PreisField = value;
+                this.priceField = value;
             }
         }
     }
