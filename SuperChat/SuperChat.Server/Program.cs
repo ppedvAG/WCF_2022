@@ -14,7 +14,7 @@ namespace SuperChat.Server
 
             var tcp = new NetTcpBinding();
             tcp.Security.Mode = SecurityMode.Transport;
-            tcp.Security.Message.ClientCredentialType = MessageCredentialType.Certificate;
+            tcp.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
             tcp.MaxReceivedMessageSize = int.MaxValue;
             var tcpAdr = "net.tcp://localhost:1";
 
@@ -36,7 +36,9 @@ namespace SuperChat.Server
 
 
             host.Credentials.ClientCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.None;
+            
             host.Credentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.Root, X509FindType.FindByThumbprint, "2758d963dfbdcf0ed3cf638f4f8f3db6f6da7acb");
+            host.Credentials.ServiceCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.Root, X509FindType.FindByThumbprint, "2758d963dfbdcf0ed3cf638f4f8f3db6f6da7acb");
 
             host.Open();
             Console.WriteLine("Server wurde gestartet");
