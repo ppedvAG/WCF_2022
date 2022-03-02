@@ -38,9 +38,11 @@ namespace SuperChat.Client
             EndpointAddress address = new EndpointAddress(new Uri(tcpAdr), identity);
 
             var http = new WSDualHttpBinding();
-            //http.Security.Mode = WSDualHttpSecurityMode.None;
+            http.Security.Mode = WSDualHttpSecurityMode.Message;
+            http.Security.Message.ClientCredentialType = MessageCredentialType.Certificate;
             http.MaxReceivedMessageSize = int.MaxValue;
-            var httpAdr = "http://localhost:2/chat";
+            var httpAdr = "http://192.168.178.122:2/chat";
+            EndpointAddress httpAddress = new EndpointAddress(new Uri(httpAdr), identity);
 
             var netHttp = new NetHttpsBinding();
             //netHttp.Security.Mode = BasicHttpsSecurityMode.Transport;
@@ -48,10 +50,10 @@ namespace SuperChat.Client
             var netHttpAdr = "https://localhost:3/chat";
 
 
-            var chf = new DuplexChannelFactory<IServer>(this, tcp, address);
+            //var chf = new DuplexChannelFactory<IServer>(this, tcp, address);
+            var chf = new DuplexChannelFactory<IServer>(this, http, httpAddress);
             chf.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None;
             chf.Credentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.Root, X509FindType.FindByThumbprint, "2758d963dfbdcf0ed3cf638f4f8f3db6f6da7acb");
-            //var chf = new DuplexChannelFactory<IServer>(this, http, httpAdr);
             //var chf = new DuplexChannelFactory<IServer>(this, netHttp, netHttpAdr);
 
             server = chf.CreateChannel();

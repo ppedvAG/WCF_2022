@@ -19,8 +19,8 @@ namespace SuperChat.Server
             var tcpAdr = "net.tcp://localhost:1";
 
             var http = new WSDualHttpBinding();
-            //http.Security.Message.ClientCredentialType = MessageCredentialType.None;
-            http.Security.Mode = WSDualHttpSecurityMode.None;
+            http.Security.Mode = WSDualHttpSecurityMode.Message;
+            http.Security.Message.ClientCredentialType = MessageCredentialType.Certificate;
             http.MaxReceivedMessageSize = int.MaxValue;
             var httpAdr = "http://localhost:2/chat";
 
@@ -31,13 +31,12 @@ namespace SuperChat.Server
 
             var host = new ServiceHost(typeof(ChatServer));
             host.AddServiceEndpoint(typeof(IServer), tcp, tcpAdr);
-            //host.AddServiceEndpoint(typeof(IServer), http, httpAdr);
+            host.AddServiceEndpoint(typeof(IServer), http, httpAdr);
             //host.AddServiceEndpoint(typeof(IServer), netHttp, netHttpAdr);
 
 
             host.Credentials.ClientCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.None;
-            
-            host.Credentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.Root, X509FindType.FindByThumbprint, "2758d963dfbdcf0ed3cf638f4f8f3db6f6da7acb");
+            //host.Credentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.Root, X509FindType.FindByThumbprint, "2758d963dfbdcf0ed3cf638f4f8f3db6f6da7acb");
             host.Credentials.ServiceCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.Root, X509FindType.FindByThumbprint, "2758d963dfbdcf0ed3cf638f4f8f3db6f6da7acb");
 
             host.Open();
