@@ -26,13 +26,14 @@ namespace SuperChat.Client
         }
 
         private void Login(object sender, RoutedEventArgs e)
+
         {
             var tcp = new NetTcpBinding();
             tcp.MaxReceivedMessageSize = int.MaxValue;
             tcp.Security.Mode = SecurityMode.Transport;
             tcp.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
-            var tcpAdr = "net.tcp://192.168.178.122:1";
+            var tcpAdr = "net.tcp://DESKTOP-VCPG150:1"; //WICHTIG Hier PC Name und nicht nur IP !! 
 
             EndpointIdentity identity = EndpointIdentity.CreateDnsIdentity("SuperChatCA");
             EndpointAddress address = new EndpointAddress(new Uri(tcpAdr), identity);
@@ -50,8 +51,8 @@ namespace SuperChat.Client
             var netHttpAdr = "https://localhost:3/chat";
 
 
-            //var chf = new DuplexChannelFactory<IServer>(this, tcp, address);
-            var chf = new DuplexChannelFactory<IServer>(this, http, httpAddress);
+            var chf = new DuplexChannelFactory<IServer>(this, tcp, address);
+            //var chf = new DuplexChannelFactory<IServer>(this, http, httpAddress);
             chf.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None;
             chf.Credentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.Root, X509FindType.FindByThumbprint, "2758d963dfbdcf0ed3cf638f4f8f3db6f6da7acb");
             //var chf = new DuplexChannelFactory<IServer>(this, netHttp, netHttpAdr);
