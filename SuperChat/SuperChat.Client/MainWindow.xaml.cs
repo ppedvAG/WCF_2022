@@ -27,6 +27,8 @@ namespace SuperChat.Client
         private void Login(object sender, RoutedEventArgs e)
         {
             var tcp = new NetTcpBinding();
+            tcp.MaxReceivedMessageSize = int.MaxValue;
+
             var tcpAdr = "net.tcp://localhost:1";
 
             var chf = new DuplexChannelFactory<IServer>(this, tcp, tcpAdr);

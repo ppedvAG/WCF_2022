@@ -11,6 +11,7 @@ namespace SuperChat.Server
             Console.WriteLine("*** Super Chat Server v0.1 ***");
 
             var tcp = new NetTcpBinding();
+            tcp.MaxReceivedMessageSize = int.MaxValue;
             var tcpAdr = "net.tcp://localhost:1";
 
             var host = new ServiceHost(typeof(ChatServer));
